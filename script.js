@@ -278,27 +278,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === Empires historiques : ellipses ===
-    // Nouvelle liste basée sur la demande utilisateur (top 10, positions approximatives et surfaces proportionnelles)
-    // Surfaces historiques estimées (en km²) + ratio personnalisé pour chaque empire
+    // Liste étendue à 40 empires/royaumes majeurs d'Afrique (positions, surfaces, ratios : estimations historiques et géographiques)
     const empireData = [
-      { name: "Égypte ancienne", lat: 26.5, lng: 31.5, area: 1000000, color: "rgba(255, 215, 0, 0.3)", ratio: 3 }, // très allongé nord-sud
-      { name: "Carthage", lat: 36.8, lng: 10.2, area: 300000, color: "rgba(255, 87, 34, 0.3)", ratio: 0.5 }, // horizontal (2:1)
-      { name: "Nubie/Koush", lat: 18.5, lng: 31.7, area: 1500000, color: "rgba(255, 0, 0, 0.3)", ratio: 2 }, // vertical
-      { name: "Empire du Ghana", lat: 14.5, lng: -2.0, area: 500000, color: "rgba(0, 140, 255, 0.3)", ratio: 0.5 }, // horizontal
-      { name: "Empire du Mali", lat: 13.5, lng: -4.0, area: 1100000, color: "rgba(255, 165, 0, 0.3)", ratio: 0.7 }, // horizontal
-      { name: "Empire Songhaï", lat: 16.0, lng: 0.0, area: 1400000, color: "rgba(0, 200, 83, 0.3)", ratio: 0.5 }, // horizontal
-      { name: "Kanem-Bornou", lat: 13.0, lng: 15.5, area: 800000, color: "rgba(156, 39, 176, 0.3)", ratio: 1 }, // rond
-      { name: "Grand Zimbabwe", lat: -20.3, lng: 30.0, area: 350000, color: "rgba(33, 150, 243, 0.3)", ratio: 1 }, // rond
-      { name: "Royaume du Bénin", lat: 6.5, lng: 5.6, area: 150000, color: "rgba(255, 99, 71, 0.3)", ratio: 2 }, // vertical
-      { name: "Aksoum", lat: 14.1, lng: 38.7, area: 1200000, color: "rgba(0, 188, 212, 0.3)", ratio: 1.5 } // vertical
+      { name: "Égypte ancienne", lat: 26.5, lng: 31.5, area: 1000000, color: "rgba(255,215,0,0.3)", ratio: 3 },
+      { name: "Carthage", lat: 36.8, lng: 10.2, area: 300000, color: "rgba(255,87,34,0.3)", ratio: 0.5 },
+      { name: "Nubie/Koush", lat: 18.5, lng: 31.7, area: 1500000, color: "rgba(255,0,0,0.3)", ratio: 2 },
+      { name: "Empire du Ghana", lat: 14.5, lng: -2.0, area: 500000, color: "rgba(0,140,255,0.3)", ratio: 0.5 },
+      { name: "Empire du Mali", lat: 13.5, lng: -4.0, area: 1100000, color: "rgba(255,165,0,0.3)", ratio: 0.7 },
+      { name: "Empire Songhaï", lat: 16.0, lng: 0.0, area: 1400000, color: "rgba(0,200,83,0.3)", ratio: 0.5 },
+      { name: "Kanem-Bornou", lat: 13.0, lng: 15.5, area: 800000, color: "rgba(156,39,176,0.3)", ratio: 1 },
+      { name: "Grand Zimbabwe", lat: -20.3, lng: 30.0, area: 350000, color: "rgba(33,150,243,0.3)", ratio: 1 },
+      { name: "Royaume du Bénin", lat: 6.5, lng: 5.6, area: 150000, color: "rgba(255,99,71,0.3)", ratio: 2 },
+      { name: "Aksoum", lat: 14.1, lng: 38.7, area: 1200000, color: "rgba(0,188,212,0.3)", ratio: 1.5 },
+      { name: "Makuria", lat: 19.0, lng: 30.0, area: 800000, color: "rgba(255,0,100,0.3)", ratio: 2 },
+      { name: "Royaumes satellites Mali", lat: 13.0, lng: -5.0, area: 400000, color: "rgba(255,193,7,0.3)", ratio: 0.7 },
+      { name: "Empire du Tchad", lat: 13.5, lng: 18.0, area: 400000, color: "rgba(121,85,72,0.3)", ratio: 1 },
+      { name: "Aksum (1er-7e)", lat: 14.3, lng: 39.0, area: 800000, color: "rgba(0,188,212,0.22)", ratio: 1.5 },
+      { name: "Empire de l'Oyo", lat: 8.5, lng: 4.5, area: 250000, color: "rgba(255,87,34,0.22)", ratio: 0.5 },
+      { name: "Royaume de Kongo", lat: -6.0, lng: 15.0, area: 500000, color: "rgba(76,175,80,0.3)", ratio: 1 },
+      { name: "Royaume du Dahomey", lat: 9.5, lng: 2.5, area: 100000, color: "rgba(233,30,99,0.3)", ratio: 2 },
+      { name: "Royaume des Ashanti", lat: 7.5, lng: -1.5, area: 250000, color: "rgba(255,152,0,0.3)", ratio: 1 },
+      { name: "Empire des Zoulous", lat: -28.0, lng: 31.0, area: 300000, color: "rgba(0,150,136,0.3)", ratio: 1.5 },
+      { name: "Royaume de Saba", lat: 15.0, lng: 45.0, area: 250000, color: "rgba(255,193,7,0.22)", ratio: 1.5 },
+      { name: "Empire des Huns", lat: 34.0, lng: 15.0, area: 600000, color: "rgba(121,85,72,0.22)", ratio: 2 },
+      { name: "Royaume de Tigre", lat: 14.5, lng: 39.5, area: 200000, color: "rgba(0,188,212,0.16)", ratio: 1.2 },
+      { name: "Royaume de l'Ifé", lat: 7.5, lng: 4.6, area: 100000, color: "rgba(255,235,59,0.3)", ratio: 1 },
+      { name: "Royaume de Senufo", lat: 9.5, lng: -5.5, area: 100000, color: "rgba(158,158,158,0.3)", ratio: 1.5 },
+      { name: "Empire du Luba", lat: -7.5, lng: 23.5, area: 400000, color: "rgba(120,60,0,0.3)", ratio: 1.3 },
+      { name: "Empire du Kongo", lat: -6.0, lng: 15.0, area: 500000, color: "rgba(76,175,80,0.22)", ratio: 1 },
+      { name: "Royaume de Tshwana", lat: -24.0, lng: 25.0, area: 250000, color: "rgba(205,220,57,0.3)", ratio: 1 },
+      { name: "Royaume de Nubie", lat: 20.0, lng: 31.0, area: 600000, color: "rgba(255,0,0,0.22)", ratio: 2 },
+      { name: "Empire de l'Azania", lat: -4.0, lng: 39.0, area: 300000, color: "rgba(0,150,136,0.22)", ratio: 2 },
+      { name: "Empire d'Alwa", lat: 15.5, lng: 33.0, area: 250000, color: "rgba(121,85,72,0.16)", ratio: 1.5 },
+      { name: "Royaume du D'mt", lat: 15.0, lng: 39.0, area: 100000, color: "rgba(255,193,7,0.16)", ratio: 1.2 },
+      { name: "Royaume de Lunda", lat: -10.0, lng: 20.0, area: 300000, color: "rgba(205,220,57,0.22)", ratio: 1 },
+      { name: "Empire de Oyo", lat: 8.5, lng: 4.5, area: 250000, color: "rgba(255,87,34,0.16)", ratio: 0.5 },
+      { name: "Royaume de Kpalimé", lat: 7.0, lng: 0.8, area: 80000, color: "rgba(233,30,99,0.16)", ratio: 1.2 },
+      { name: "Royaume de Wadai", lat: 13.5, lng: 20.5, area: 300000, color: "rgba(121,85,72,0.12)", ratio: 1 },
+      { name: "Royaume de Fouta Djallon", lat: 10.5, lng: -11.0, area: 120000, color: "rgba(33,150,243,0.16)", ratio: 1.5 },
+      { name: "Empire de Zazzau", lat: 10.5, lng: 7.7, area: 120000, color: "rgba(255,152,0,0.16)", ratio: 1.2 },
+      { name: "Empire du Djerma", lat: 13.0, lng: 2.0, area: 150000, color: "rgba(76,175,80,0.16)", ratio: 1.2 },
+      { name: "Empire de Gao", lat: 16.3, lng: -0.05, area: 200000, color: "rgba(255,235,59,0.16)", ratio: 1.5 },
+      { name: "Empire de l'Abissinie", lat: 11.5, lng: 39.5, area: 800000, color: "rgba(0,188,212,0.09)", ratio: 1.7 }
     ];
-    // Conversion km² en degrés (approximation sphérique)
-    // 1° latitude ≈ 111 km, 1° longitude ≈ 111 km × cos(lat)
     function getEllipseDegrees(area_km2, lat_centre, ratio) {
-        // ratio = ry/rx (vertical/horizontal)
-        // pi*rx*ry = area_geo_deg2
-        // ry = ratio*rx
-        // pi*rx*ratio*rx = area_geo_deg2 => rx = sqrt(area_geo_deg2/(pi*ratio)), ry = ratio*rx
         const cosLat = Math.cos(lat_centre * Math.PI / 180);
         const area_geo_deg2 = area_km2 / (111*111 * cosLat);
         const rx = Math.sqrt(area_geo_deg2 / (Math.PI * ratio));
@@ -306,19 +329,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return { dlat: ry, dlng: rx };
     }
     const empires = empireData.map(e => {
-        // Calcule les demi-axes en degrés, ratio personnalisé
         const { dlat, dlng } = getEllipseDegrees(e.area, e.lat, e.ratio);
-        // Centre
         const { cx, cy } = geoToScreenBary(e.lat, e.lng, R1, R2, R3);
-        // Point nord (lat+dlat)
         const { cy: cyN } = geoToScreenBary(e.lat + dlat, e.lng, R1, R2, R3);
-        // Point sud (lat-dlat)
         const { cy: cyS } = geoToScreenBary(e.lat - dlat, e.lng, R1, R2, R3);
-        // Point est (lng+dlng)
         const { cx: cxE } = geoToScreenBary(e.lat, e.lng + dlng, R1, R2, R3);
-        // Point ouest (lng-dlng)
         const { cx: cxW } = geoToScreenBary(e.lat, e.lng - dlng, R1, R2, R3);
-        // rx = (cxE - cxW)/2 ; ry = (cyN - cyS)/2
         const rx = Math.abs(cxE - cxW) / 2;
         const ry = Math.abs(cyN - cyS) / 2;
         return {
@@ -343,7 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ellipse.setAttribute('pointer-events', 'none');
         ellipse.setAttribute('id', 'empire-'+empire.name.replace(/[^a-z0-9]/gi,'-').toLowerCase());
         empiresLayer.appendChild(ellipse);
-        // Label texte au centre
         const label = document.createElementNS('http://www.w3.org/2000/svg','text');
         label.setAttribute('x', cx);
         label.setAttribute('y', cy+5);
